@@ -4,6 +4,11 @@
 
 .formFooter {
     padding: 10px;
+    border-top: 1px solid black;
+}
+
+.formFooter p {
+    text-align: right;
 }
 
 .job:nth-child(even) {
@@ -54,4 +59,27 @@
 
 .job:nth-child(odd) .part:nth-child(even) {
     background-color: #d0d0d0;
+}
+
+.jobBody {
+    display: flex;
+}
+
+.partList {
+    display: flex;
+    flex-direction: column;
+}
+
+.jobBody p {
+    margin: auto 0 0 auto;
+}
+
+.jobTotal {
+    display: inline-block;
+    width: 60px;
+    text-align: right;
+}
+
+.checkboxLabel {
+    margin-right: 5px;
 }

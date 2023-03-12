@@ -9,6 +9,7 @@ class Part {
      */
     #aftermarketMargin: number = 1.55;
     #retail: number = 0;
+    #amount: number = 1;
     
     constructor (name: string) {
         this.#name = name;
@@ -68,6 +69,14 @@ class Part {
 
     set retail(price: number) {
         this.#retail = price;
+    }
+
+    get amount(): number {
+        return this.#amount;
+    }
+
+    set amount(a: number) {
+        this.#amount = a > 0 ? a : 0;
     }
 
     recalculateRetail(): void {

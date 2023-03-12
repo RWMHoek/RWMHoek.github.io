@@ -69,7 +69,7 @@ class Job {
         t += this.labour * this.labourRate;
 
         t += this.parts.reduce((accumulator: number, currentValue: Part) => {
-            return accumulator + currentValue.retail;
+            return accumulator + currentValue.retail * currentValue.amount;
         }, 0)
 
         return Math.round(t * 100) / 100;

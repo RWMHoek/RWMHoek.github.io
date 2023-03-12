@@ -106,85 +106,99 @@ function Calculator() {
                                 <input type="button" className={styles.closeButton} value="X" onClick={() => removeJob(jobIndex)} />
                             </div>
 
-                            <ul className={styles.partsList}>
-                                {
-                                    job.parts.map((part, partIndex) => {
-                                        return (
-                                            <li key={partIndex} className={styles.part}>
-                                                <label htmlFor={`part${partIndex}name`}>Part:</label>
-                                                <input
-                                                    type="text"
-                                                    name="name"
-                                                    id={`part${partIndex}name`}
-                                                    value={part.name}
-                                                    onChange={handlePartChange}
-                                                    data-type="string"
-                                                    data-jobindex={jobIndex}
-                                                    data-partIndex={partIndex}
-                                                />
+                            <div className={styles.jobBody}>
+                                <div className="partList">
+                                    <ul className={styles.partsList}>
+                                        {
+                                            job.parts.map((part, partIndex) => {
+                                                return (
+                                                    <li key={partIndex} className={styles.part}>
+                                                        <input
+                                                            type="text"
+                                                            name="name"
+                                                            id={`part${partIndex}name`}
+                                                            value={part.name}
+                                                            onChange={handlePartChange}
+                                                            placeholder="Part"
+                                                            data-type="string"
+                                                            data-jobindex={jobIndex}
+                                                            data-partIndex={partIndex}
+                                                        />
 
-                                                <input
-                                                    type="checkbox"
-                                                    name="isAftermarket"
-                                                    id={`part${partIndex}isAftermarket`}
-                                                    checked={part.isAftermarket}
-                                                    onChange={handlePartChange}
-                                                    data-jobindex={jobIndex}
-                                                    data-partIndex={partIndex}
-                                                    data-type="boolean"
-                                                />
-                                                <label htmlFor={`part${partIndex}isAftermarket`}>Aftermarket</label>
+                                                        <input
+                                                            type="checkbox"
+                                                            name="isAftermarket"
+                                                            id={`part${partIndex}isAftermarket`}
+                                                            checked={part.isAftermarket}
+                                                            onChange={handlePartChange}
+                                                            data-jobindex={jobIndex}
+                                                            data-partIndex={partIndex}
+                                                            data-type="boolean"
+                                                        />
+                                                        <label className={styles.checkboxLabel} htmlFor={`part${partIndex}isAftermarket`}>Aftermarket</label>
 
-                                                {!part.isAftermarket ? null : (
-                                                    <>
-                                                        <label htmlFor={`${partIndex}cost`}>Cost ({part.isCostIn ? 'in' : 'ex'})</label>
+                                                        <span style={part.isAftermarket ? {visibility: "visible"} : {visibility: "hidden"}}>
+                                                            <label htmlFor={`${partIndex}cost`}>Cost:</label>
+                                                            <input
+                                                                type="number"
+                                                                name="cost"
+                                                                id={`${partIndex}cost`}
+                                                                value={part.cost}
+                                                                onChange={handlePartChange}
+                                                                data-partIndex={partIndex}
+                                                                data-jobindex={jobIndex}
+                                                                data-type="number"
+                                                            />
+
+                                                            <input
+                                                                type="checkbox"
+                                                                name="isCostIn"
+                                                                id={`isCostIn${partIndex}`}
+                                                                value={Number(part.isCostIn)}
+                                                                onChange={handlePartChange}
+                                                                data-partIndex={partIndex}
+                                                                data-jobindex={jobIndex}
+                                                                data-type="boolean"
+                                                            />
+                                                            <label className={styles.checkboxLabel} htmlFor={`isCostIn${partIndex}`}>Including GST</label>
+                                                        </span>
+
+                                                        <label htmlFor={`part${partIndex}retail`}>Retail (in):</label>
                                                         <input
                                                             type="number"
-                                                            name="cost"
-                                                            id={`${partIndex}cost`}
-                                                            value={part.cost}
+                                                            name='retail'
+                                                            id={`part${partIndex}retail`}
+                                                            value={part.retail}
                                                             onChange={handlePartChange}
                                                             data-partIndex={partIndex}
                                                             data-jobindex={jobIndex}
                                                             data-type="number"
                                                         />
 
-                                                        <label htmlFor={`isCostIn${partIndex}`}>Including GST?</label>
+                                                        <label htmlFor={`part${partIndex}amount`}>Quantity:</label>
                                                         <input
-                                                            type="checkbox"
-                                                            name="isCostIn"
-                                                            id={`isCostIn${partIndex}`}
-                                                            value={Number(part.isCostIn)}
+                                                            type="number"
+                                                            name='amount'
+                                                            id={`part${partIndex}amount`}
+                                                            value={part.amount}
                                                             onChange={handlePartChange}
-                                                            data-partIndex={partIndex}
+                                                            data-partindex={partIndex}
                                                             data-jobindex={jobIndex}
-                                                            data-type="boolean"
+                                                            data-type="number"
                                                         />
-                                                    </>
-                                                )}
 
-                                                <label htmlFor={`part${partIndex}retail`}>Retail (in):</label>
-                                                <input
-                                                    type="number"
-                                                    name='retail'
-                                                    id={`part${partIndex}retail`}
-                                                    value={part.retail}
-                                                    onChange={handlePartChange}
-                                                    data-partIndex={partIndex}
-                                                    data-jobindex={jobIndex}
-                                                    data-type="number"
-                                                />
+                                                        <input type="button" value="X" onClick={() => removePart(jobIndex, partIndex)} />
+                                                    </li>
+                                                )
+                                            })
+                                        }
+                                    </ul>
+                                    <input type="button" value="Add Part" onClick={() => addPart(jobIndex)} />
+                                </div>
 
-                                                <input type="button" value="X" onClick={() => removePart(jobIndex, partIndex)} />
-                                            </li>
-                                        )
-                                    })
-                                }
-                            </ul>
+                                <p>Job total: <span className={styles.jobTotal}>{toCurrency(job.total())}</span></p>
+                            </div>
 
-                            <input type="button" value="Add Part" onClick={() => addPart(jobIndex)} />
-
-                            <p>{`Job total: ${toCurrency(job.total())}`}</p>
                         </div>
                     )
                 })}
@@ -192,7 +206,7 @@ function Calculator() {
                 <div className={styles.formFooter}>
                     <input type="button" value="Add Job" onClick={addJob} />
 
-                    <p>Total: {toCurrency(jobs.reduce((prev, curr) => {return prev + curr.total()}, 0))}</p>
+                    <p>Total: <span className={styles.jobTotal}>{toCurrency(jobs.reduce((prev, curr) => {return prev + curr.total()}, 0))}</span></p>
                 </div>
             </form>
         </>
