@@ -1,0 +1,57 @@
+.form {
+    border: 1px solid black
+}
+
+.formFooter {
+    padding: 10px;
+}
+
+.job:nth-child(even) {
+    background-color: #d0d0d0;
+}
+
+.job {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 10px;
+}
+
+.job input {
+    margin: 0 5px;
+}
+
+.job input[type='number'] {
+    width: 75px;
+}
+
+.jobHead {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.jobHead input[type='number'] {
+    width: 50px;
+}
+
+.jobHead input[type='button'] {
+    margin-left: auto;
+}
+
+.partsList {
+    list-style-type: none;
+}
+
+.part {
+    padding: 3px;
+    width: fit-content;
+}
+
+.part:nth-child(even) {
+    background-color: white;
+}
+
+.job:nth-child(odd) .part:nth-child(even) {
+    background-color: #d0d0d0;
+}
