@@ -1,7 +1,7 @@
 import Job from '@/lib/classes/Job'
 import Part from '@/lib/classes/Part';
 import { getTypedValue, toCurrency } from '@/lib/utils';
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import styles from '@/styles/Calculator.module.css';
 
 function Calculator() {
@@ -81,13 +81,13 @@ function Calculator() {
                     return (
                         <div key={jobIndex} className={styles.job}>
                             <div className={styles.jobHead}>
-                                <label htmlFor="name">Job:</label>
                                 <input
                                     type="text"
                                     name="name"
                                     id="name"
                                     value={job.name}
                                     onChange={handleJobChange}
+                                    placeholder='Job'
                                     data-type="string"
                                     data-jobindex={jobIndex}
                                 />
@@ -138,12 +138,12 @@ function Calculator() {
                                                             />
                                                             <label className={styles.checkboxLabel} htmlFor={`part${partIndex}isAftermarket`}>Aftermarket</label>
 
-                                                            <label htmlFor={`part${partIndex}retail`}>Retail (in):</label>
+                                                            <label htmlFor={`part${partIndex}retail`}>Retail (in): $</label>
                                                             <input
                                                                 type="number"
                                                                 name='retail'
                                                                 id={`part${partIndex}retail`}
-                                                                value={part.retail}
+                                                                value={part.retail.toFixed(2)}
                                                                 onChange={handlePartChange}
                                                                 data-partIndex={partIndex}
                                                                 data-jobindex={jobIndex}
@@ -165,12 +165,12 @@ function Calculator() {
                                                         </div>
 
                                                         <div className={styles.aftermarket} style={part.isAftermarket ? {} : {display: "none"}}>
-                                                            <label htmlFor={`${partIndex}cost`}>Cost:</label>
-                                                            <input
+                                                            <label className={styles.costLabel} htmlFor={`${partIndex}cost`}>Cost ({part.isCostIn ? 'in' : 'ex'}):</label>
+                                                            $<input
                                                                 type="number"
                                                                 name="cost"
                                                                 id={`${partIndex}cost`}
-                                                                value={part.cost}
+                                                                value={part.cost.toFixed(2)}
                                                                 onChange={handlePartChange}
                                                                 data-partIndex={partIndex}
                                                                 data-jobindex={jobIndex}
