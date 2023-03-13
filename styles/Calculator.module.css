@@ -57,6 +57,10 @@
     background-color: white;
 }
 
+.aftermarket {
+    padding-left: 5px;
+}
+
 .job:nth-child(odd) .part:nth-child(even) {
     background-color: #d0d0d0;
 }

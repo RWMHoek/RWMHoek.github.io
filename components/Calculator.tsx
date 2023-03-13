@@ -1,7 +1,7 @@
 import Job from '@/lib/classes/Job'
 import Part from '@/lib/classes/Part';
 import { getTypedValue, toCurrency } from '@/lib/utils';
-import React, { ChangeEvent, MouseEvent, useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import styles from '@/styles/Calculator.module.css';
 
 function Calculator() {
@@ -107,37 +107,64 @@ function Calculator() {
                             </div>
 
                             <div className={styles.jobBody}>
-                                <div className="partList">
+                                <div className={styles.partList}>
                                     <ul className={styles.partsList}>
                                         {
                                             job.parts.map((part, partIndex) => {
                                                 return (
                                                     <li key={partIndex} className={styles.part}>
-                                                        <input
-                                                            type="text"
-                                                            name="name"
-                                                            id={`part${partIndex}name`}
-                                                            value={part.name}
-                                                            onChange={handlePartChange}
-                                                            placeholder="Part"
-                                                            data-type="string"
-                                                            data-jobindex={jobIndex}
-                                                            data-partIndex={partIndex}
-                                                        />
+                                                        <div className={styles.genuine}>
+                                                            <input
+                                                                type="text"
+                                                                name="name"
+                                                                id={`part${partIndex}name`}
+                                                                value={part.name}
+                                                                onChange={handlePartChange}
+                                                                placeholder="Part"
+                                                                data-type="string"
+                                                                data-jobindex={jobIndex}
+                                                                data-partIndex={partIndex}
+                                                            />
 
-                                                        <input
-                                                            type="checkbox"
-                                                            name="isAftermarket"
-                                                            id={`part${partIndex}isAftermarket`}
-                                                            checked={part.isAftermarket}
-                                                            onChange={handlePartChange}
-                                                            data-jobindex={jobIndex}
-                                                            data-partIndex={partIndex}
-                                                            data-type="boolean"
-                                                        />
-                                                        <label className={styles.checkboxLabel} htmlFor={`part${partIndex}isAftermarket`}>Aftermarket</label>
+                                                            <input
+                                                                type="checkbox"
+                                                                name="isAftermarket"
+                                                                id={`part${partIndex}isAftermarket`}
+                                                                checked={part.isAftermarket}
+                                                                onChange={handlePartChange}
+                                                                data-jobindex={jobIndex}
+                                                                data-partIndex={partIndex}
+                                                                data-type="boolean"
+                                                            />
+                                                            <label className={styles.checkboxLabel} htmlFor={`part${partIndex}isAftermarket`}>Aftermarket</label>
 
-                                                        <span style={part.isAftermarket ? {visibility: "visible"} : {visibility: "hidden"}}>
+                                                            <label htmlFor={`part${partIndex}retail`}>Retail (in):</label>
+                                                            <input
+                                                                type="number"
+                                                                name='retail'
+                                                                id={`part${partIndex}retail`}
+                                                                value={part.retail}
+                                                                onChange={handlePartChange}
+                                                                data-partIndex={partIndex}
+                                                                data-jobindex={jobIndex}
+                                                                data-type="number"
+                                                            />
+
+                                                            <label htmlFor={`part${partIndex}amount`}>Quantity:</label>
+                                                            <input
+                                                                type="number"
+                                                                name='amount'
+                                                                id={`part${partIndex}amount`}
+                                                                value={part.amount}
+                                                                onChange={handlePartChange}
+                                                                data-partindex={partIndex}
+                                                                data-jobindex={jobIndex}
+                                                                data-type="number"
+                                                            />
+                                                            <input type="button" value="X" onClick={() => removePart(jobIndex, partIndex)} />
+                                                        </div>
+
+                                                        <div className={styles.aftermarket} style={part.isAftermarket ? {} : {display: "none"}}>
                                                             <label htmlFor={`${partIndex}cost`}>Cost:</label>
                                                             <input
                                                                 type="number"
@@ -161,33 +188,7 @@ function Calculator() {
                                                                 data-type="boolean"
                                                             />
                                                             <label className={styles.checkboxLabel} htmlFor={`isCostIn${partIndex}`}>Including GST</label>
-                                                        </span>
-
-                                                        <label htmlFor={`part${partIndex}retail`}>Retail (in):</label>
-                                                        <input
-                                                            type="number"
-                                                            name='retail'
-                                                            id={`part${partIndex}retail`}
-                                                            value={part.retail}
-                                                            onChange={handlePartChange}
-                                                            data-partIndex={partIndex}
-                                                            data-jobindex={jobIndex}
-                                                            data-type="number"
-                                                        />
-
-                                                        <label htmlFor={`part${partIndex}amount`}>Quantity:</label>
-                                                        <input
-                                                            type="number"
-                                                            name='amount'
-                                                            id={`part${partIndex}amount`}
-                                                            value={part.amount}
-                                                            onChange={handlePartChange}
-                                                            data-partindex={partIndex}
-                                                            data-jobindex={jobIndex}
-                                                            data-type="number"
-                                                        />
-
-                                                        <input type="button" value="X" onClick={() => removePart(jobIndex, partIndex)} />
+                                                        </div>
                                                     </li>
                                                 )
                                             })
