@@ -1,7 +1,7 @@
 import Job from '@/lib/classes/Job'
 import Part from '@/lib/classes/Part';
 import { getTypedValue, toCurrency } from '@/lib/utils';
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import styles from '@/styles/Calculator.module.css';
 
 function Calculator() {
@@ -143,7 +143,7 @@ function Calculator() {
                                                                 type="number"
                                                                 name='retail'
                                                                 id={`part${partIndex}retail`}
-                                                                value={part.retail.toFixed(2)}
+                                                                value={part.retail}
                                                                 onChange={handlePartChange}
                                                                 data-partIndex={partIndex}
                                                                 data-jobindex={jobIndex}
@@ -170,7 +170,7 @@ function Calculator() {
                                                                 type="number"
                                                                 name="cost"
                                                                 id={`${partIndex}cost`}
-                                                                value={part.cost.toFixed(2)}
+                                                                value={part.cost}
                                                                 onChange={handlePartChange}
                                                                 data-partIndex={partIndex}
                                                                 data-jobindex={jobIndex}
