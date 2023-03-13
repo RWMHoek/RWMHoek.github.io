@@ -193,8 +193,8 @@ function Calculator() {
                                                 )
                                             })
                                         }
+                                        <li><input type="button" value="Add Part" onClick={() => addPart(jobIndex)} /></li>
                                     </ul>
-                                    <input type="button" value="Add Part" onClick={() => addPart(jobIndex)} />
                                 </div>
 
                                 <p>Job total: <span className={styles.jobTotal}>{toCurrency(job.total())}</span></p>
