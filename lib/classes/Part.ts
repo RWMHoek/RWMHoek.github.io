@@ -80,8 +80,8 @@ class Part {
     }
 
     recalculateRetail(): void {
-        const price = this.cost * this.#aftermarketMargin;
-        this.retail = this.#isCostIn ? price / 1.1 : price;
+        const price = (this.isCostIn ? this.cost / 1.1 : this.cost) * this.#aftermarketMargin;
+        this.retail = Math.ceil(price / 5) * 5;
     }
 }
 
